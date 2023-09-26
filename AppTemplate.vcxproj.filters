@@ -16,6 +16,9 @@
     <ClCompile Include="src\AppTemplateDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="base\src\Direct2DEx.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\include\ColorPalette.h">
@@ -41,6 +44,9 @@
     </ClInclude>
     <ClInclude Include="include\AppTemplateDialog.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="base\include\Direct2DEx.h">
+      <Filter>Header Files\base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

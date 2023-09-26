@@ -19,7 +19,7 @@ Direct2D::Direct2D(const HWND ah_window, const RECT *const ap_viewRect) :
 	mp_strokeStyle = nullptr;
 
 	m_brushColor = RGB_TO_COLORF(NEUTRAL_50);
-	m_backgroundColor = RGB_TO_COLORF(NEUTRAL_900);
+	m_backgroundColor = RGB_TO_COLORF(NEUTRAL_800);
 	m_strokeWidth = 1.0f;
 }
 
@@ -168,8 +168,7 @@ ID2D1StrokeStyle *const Direct2D::CreateUserStrokeStyle(
 	ID2D1StrokeStyle *p_strokeStype;
 	if (S_OK != gp_appCore->GetFactory()->CreateStrokeStyle(
 		storkeStypeProperties, nullptr, 0, &p_strokeStype
-		)
-	) {
+	)) {
 		return nullptr;
 	}
 
@@ -210,9 +209,10 @@ ID2D1Brush *Direct2D::SetBrush(ID2D1Brush *const ap_brush)
 	return p_prevBrush;
 }
 
-//////////////////
+////////////////////////////////////
 // drawing methode
-//////////////////
+////////////////////////////////////
+
 void Direct2D::DrawLine(const DPoint &a_startPoint, const DPoint &a_endPoint)
 {
 	mp_renderTarget->DrawLine(a_startPoint, a_endPoint, mp_brush, m_strokeWidth, mp_strokeStyle);

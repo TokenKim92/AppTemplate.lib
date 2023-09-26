@@ -6,9 +6,6 @@
 							  static_cast<float>(GetBValue(rgb)) / 255.0f, \
 							  1.0f }
 
-#define TRANSPARENT_COLOR				(COLORREF)0x808080
-#define APPROXIMATION_TRANSPARENT_COLOR	(COLORREF)0x818181
-
 #define SLATE_50		(COLORREF)0xfcfaf8
 #define SLATE_100		(COLORREF)0xf9f5f1
 #define SLATE_200		(COLORREF)0xf0e8e2

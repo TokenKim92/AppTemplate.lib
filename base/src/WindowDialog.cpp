@@ -150,7 +150,7 @@ bool WindowDialog::InitInstance(int a_x, int a_y, int a_width, int a_height)
     if (h_window) {
         mh_window = h_window;
 
-        mp_direct2d = new Direct2D(mh_window);
+        mp_direct2d = new Direct2DEx(mh_window);
         if (S_OK == mp_direct2d->Create()) {
             OnInitDialog();
 

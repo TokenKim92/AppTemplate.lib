@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "targetver.h"
 #include <map>
-#include <Direct2D.h>
+#include <Direct2DEx.h>
 
 // type modifier for message handlers
 #ifndef msg_handler
@@ -25,7 +25,7 @@ protected:
     HWND mh_window;                         // to save the main window handle
     std::map<unsigned int, MessageHandler> m_messageMap;
 
-    Direct2D *mp_direct2d;
+    Direct2DEx *mp_direct2d;
 
 public:
     static LRESULT CALLBACK WindowProcedure(HWND ah_window, UINT a_messageID, WPARAM a_wordParam, LPARAM a_longParam);
