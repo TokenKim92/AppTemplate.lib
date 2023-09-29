@@ -17,6 +17,13 @@ typedef int (WindowDialog:: *MessageHandler)(WPARAM, LPARAM);
 
 class WindowDialog
 {
+public:
+    enum THEME_MODE
+    {
+        LIGHT_MODE = 0,
+        DARK_MODE
+    };
+
 protected:
     wchar_t *mp_windowClass;                // name of window class
     wchar_t *mp_title;                      // title of the application
@@ -26,6 +33,7 @@ protected:
     std::map<unsigned int, MessageHandler> m_messageMap;
 
     Direct2DEx *mp_direct2d;
+    THEME_MODE m_themeMode;
 
 public:
     static LRESULT CALLBACK WindowProcedure(HWND ah_window, UINT a_messageID, WPARAM a_wordParam, LPARAM a_longParam);
@@ -41,6 +49,8 @@ public:
     int Run();
 
     int Create();
+    int SetThemeMode(const THEME_MODE a_mode);
+    const THEME_MODE GetThemeMode();
 
     // find the message handler for a given message ID.
     MessageHandler GetMessageHandler(unsigned int a_messageID);

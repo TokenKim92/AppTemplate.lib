@@ -1,6 +1,9 @@
 #include "Resource.h"
 #include "WindowDialog.h"
 #include <typeinfo>
+#include <dwmapi.h>
+
+#pragma comment (lib, "Dwmapi")
 
 extern ApplicationCore *gp_appCore;
 
@@ -59,6 +62,7 @@ WindowDialog::WindowDialog(const wchar_t *const ap_windowClass, const wchar_t *c
     m_messageMap[WM_PAINT] = &WindowDialog::PaintHandler;
 
     mp_direct2d = nullptr;
+    m_themeMode = THEME_MODE::DARK_MODE;
 }
 
 WindowDialog::~WindowDialog()
@@ -116,6 +120,22 @@ int WindowDialog::Create()
     return Run();
 }
 
+int WindowDialog::SetThemeMode(const THEME_MODE a_mode)
+{
+    m_themeMode = a_mode;
+    BOOL USE_DARK_MODE = THEME_MODE::DARK_MODE == a_mode;
+
+    return static_cast<int>(::DwmSetWindowAttribute(
+        mh_window, DWMWINDOWATTRIBUTE::DWMWA_USE_IMMERSIVE_DARK_MODE,
+        &USE_DARK_MODE, sizeof(USE_DARK_MODE)
+    ));
+}
+
+const WindowDialog::THEME_MODE WindowDialog::GetThemeMode()
+{
+    return m_themeMode;
+}
+
 // find the message handler for a given message ID.
 MessageHandler WindowDialog::GetMessageHandler(unsigned int a_messageID)
 {
@@ -149,18 +169,21 @@ bool WindowDialog::InitInstance(int a_x, int a_y, int a_width, int a_height)
 
     if (h_window) {
         mh_window = h_window;
+        
+        if (S_OK == SetThemeMode(m_themeMode)) {
+            mp_direct2d = new Direct2DEx(mh_window);
+            
+            if (S_OK == mp_direct2d->Create()) {
+                OnInitDialog();
 
-        mp_direct2d = new Direct2DEx(mh_window);
-        if (S_OK == mp_direct2d->Create()) {
-            OnInitDialog();
+                ::ShowWindow(h_window, m_showType);
+                ::UpdateWindow(h_window);
 
-            ::ShowWindow(h_window, m_showType);
-            ::UpdateWindow(h_window);
+                return true;
+            }
 
-            return true;
+            delete mp_direct2d;
         }
-
-        delete mp_direct2d;
     }
 
     return false;
