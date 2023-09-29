@@ -9,7 +9,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE ah_instance, _In_opt_ HINSTANCE ah_notUseIn
     ApplicationCore appCore(ah_instance);
     if (S_OK == appCore.Create()) {
         AppTemplateDialog dialog;
-        return dialog.Create();
+        return dialog.Create(400, 100);
     }
 
     return 0;

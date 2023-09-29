@@ -110,10 +110,10 @@ int WindowDialog::Run()
     return static_cast<int>(message.wParam);
 }
 
-int WindowDialog::Create()
+int WindowDialog::Create(int a_width, int a_height, int a_x, int a_y)
 {
     RegistWindowClass();
-    if (!InitInstance()) {
+    if (!InitInstance(a_width, a_height, a_x, a_y)) {
         return 0;
     }
 
@@ -134,6 +134,36 @@ int WindowDialog::SetThemeMode(const THEME_MODE a_mode)
 const WindowDialog::THEME_MODE WindowDialog::GetThemeMode()
 {
     return m_themeMode;
+}
+
+void WindowDialog::DisableMove()
+{
+    ::DeleteMenu(::GetSystemMenu(mh_window, false), SC_MOVE, MF_DELETE);
+}
+
+void WindowDialog::DisableSize()
+{
+    ::DeleteMenu(::GetSystemMenu(mh_window, false), SC_SIZE, MF_DELETE);
+}
+
+void WindowDialog::DisableMinimize()
+{
+    ::DeleteMenu(::GetSystemMenu(mh_window, false), SC_MINIMIZE, MF_DELETE);
+    SetWindowLong(
+        mh_window,
+        GWL_STYLE,
+        GetWindowLong(mh_window, GWL_STYLE) & ~WS_MINIMIZEBOX
+    );
+}
+
+void WindowDialog::DisableMaximize()
+{
+    ::DeleteMenu(::GetSystemMenu(mh_window, false), SC_MAXIMIZE, MF_DELETE);
+    SetWindowLong(
+        mh_window,
+        GWL_STYLE,
+        GetWindowLong(mh_window, GWL_STYLE) & ~WS_MAXIMIZEBOX
+    );
 }
 
 // find the message handler for a given message ID.
@@ -158,7 +188,7 @@ void WindowDialog::RemoveMessageHandler(unsigned int a_messageID)
 }
 
 // create and initialize a main window
-bool WindowDialog::InitInstance(int a_x, int a_y, int a_width, int a_height)
+bool WindowDialog::InitInstance(int a_width, int a_height, int a_x, int a_y)
 {
     HWND h_window = ::CreateWindowW(
         mp_windowClass, mp_title, WS_OVERLAPPEDWINDOW,

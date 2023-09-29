@@ -11,8 +11,11 @@ AppTemplateDialog::~AppTemplateDialog()
 
 void AppTemplateDialog::OnInitDialog()
 {
-
+	DisableMaximize();
+	DisableMinimize();
+	DisableSize();
 }
+
 
 void AppTemplateDialog::OnDestroy()
 {

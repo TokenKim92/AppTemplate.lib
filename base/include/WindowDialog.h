@@ -44,14 +44,19 @@ public:
     // window class registration
     void RegistWindowClass();
     // allocate and initialize a main window instance
-    bool InitInstance(int a_x = CW_USEDEFAULT, int a_y = 0, int a_width = CW_USEDEFAULT, int a_height = 0);
+    bool InitInstance(int a_width = CW_USEDEFAULT, int a_height = 0, int a_x = CW_USEDEFAULT, int a_y = 0);
     // Functions that handle messages issued to the application
     int Run();
 
-    int Create();
+    int Create(int a_width = CW_USEDEFAULT, int a_height = 0, int a_x = CW_USEDEFAULT, int a_y = 0);
     int SetThemeMode(const THEME_MODE a_mode);
     const THEME_MODE GetThemeMode();
 
+    void DisableMove();
+    void DisableSize();
+    void DisableMinimize();
+    void DisableMaximize();
+    
     // find the message handler for a given message ID.
     MessageHandler GetMessageHandler(unsigned int a_messageID);
     void AddMessageHandler(unsigned int a_messageID, MessageHandler a_handler);
