@@ -66,6 +66,8 @@ public:
     msg_handler int DestroyHandler(WPARAM a_wordParam, LPARAM a_longParam);
     // to handle the WM_PAINT message that occurs when a window is created
     msg_handler int PaintHandler(WPARAM a_wordParam, LPARAM a_longParam);
+    // to handle the WM_SYSCOMMAND message that occurs when a window is created
+    msg_handler int SysCommandHandler(WPARAM a_menuID, LPARAM a_longParam);
 
     virtual void OnInitDialog();
     virtual void OnDestroy();

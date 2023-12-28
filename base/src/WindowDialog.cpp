@@ -5,6 +5,9 @@
 
 #pragma comment (lib, "Dwmapi")
 
+#define MENU_DARK_MODE      20000
+#define MENU_LIGHT_MODE     20001
+
 extern ApplicationCore *gp_appCore;
 
 LRESULT CALLBACK WindowDialog::WindowProcedure(HWND ah_window, UINT a_messageID, WPARAM a_wordParam, LPARAM a_longParam)
@@ -60,6 +63,7 @@ WindowDialog::WindowDialog(const wchar_t *const ap_windowClass, const wchar_t *c
     mh_window = nullptr;
     m_messageMap[WM_DESTROY] = &WindowDialog::DestroyHandler;
     m_messageMap[WM_PAINT] = &WindowDialog::PaintHandler;
+    m_messageMap[WM_SYSCOMMAND] = &WindowDialog::SysCommandHandler;
 
     mp_direct2d = nullptr;
     m_themeMode = THEME_MODE::DARK_MODE;
@@ -191,11 +195,26 @@ void WindowDialog::RemoveMessageHandler(unsigned int a_messageID)
 bool WindowDialog::InitInstance(int a_width, int a_height, int a_x, int a_y)
 {
     HWND h_window = ::CreateWindowW(
-        mp_windowClass, mp_title, WS_OVERLAPPEDWINDOW,
+        mp_windowClass, mp_title, 
+        DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU,
         a_x, a_y, a_width, a_height, 
         nullptr, nullptr, gp_appCore->GetHandleInstance(),
         this
     );
+    HMENU h_systemMenu = ::GetSystemMenu(h_window, FALSE);
+    if (nullptr != h_systemMenu) {
+        ::DeleteMenu(h_systemMenu, SC_RESTORE, MF_BYCOMMAND);
+        ::InsertMenuW(h_systemMenu, SC_MOVE, MF_STRING, MENU_LIGHT_MODE, L"Light Mode");
+        ::InsertMenuW(h_systemMenu, SC_MOVE, MF_STRING, MENU_DARK_MODE, L"Dark Mode");
+        ::InsertMenuW(h_systemMenu, SC_MOVE, MF_SEPARATOR, NULL, nullptr);
+
+        if (THEME_MODE::LIGHT_MODE == m_themeMode) {
+            ::EnableMenuItem(h_systemMenu, MENU_LIGHT_MODE, MF_DISABLED);
+        }
+        else {
+            ::EnableMenuItem(h_systemMenu, MENU_DARK_MODE, MF_DISABLED);
+        }
+    }
 
     if (h_window) {
         mh_window = h_window;
@@ -235,6 +254,34 @@ msg_handler int WindowDialog::PaintHandler(WPARAM a_wordParam, LPARAM a_longPara
     OnPaint();
     mp_direct2d->EndDraw();
 
+    return S_OK;
+}
+
+// to handle the WM_SYSCOMMAND message that occurs when a window is created
+msg_handler int WindowDialog::SysCommandHandler(WPARAM a_menuID, LPARAM a_longParam)
+{
+    if (MENU_LIGHT_MODE == a_menuID) {
+        SetThemeMode(THEME_MODE::LIGHT_MODE);
+        
+        HMENU h_systemMenu = ::GetSystemMenu(mh_window, FALSE);
+        if (nullptr != h_systemMenu) {
+            ::EnableMenuItem(h_systemMenu, MENU_LIGHT_MODE, MF_DISABLED);
+            ::EnableMenuItem(h_systemMenu, MENU_DARK_MODE, MF_ENABLED);
+        }
+    }
+    else if (MENU_DARK_MODE == a_menuID) {
+        SetThemeMode(THEME_MODE::DARK_MODE);
+
+        HMENU h_systemMenu = ::GetSystemMenu(mh_window, FALSE);
+        if (nullptr != h_systemMenu) {
+            ::EnableMenuItem(h_systemMenu, MENU_LIGHT_MODE, MF_ENABLED);
+            ::EnableMenuItem(h_systemMenu, MENU_DARK_MODE, MF_DISABLED);
+        }
+    }
+    else {
+        return DefWindowProc(mh_window, WM_SYSCOMMAND, a_menuID, a_longParam);
+    }
+    
     return S_OK;
 }
 
