@@ -135,6 +135,12 @@ int WindowDialog::SetThemeMode(const THEME_MODE a_mode)
     ));
 }
 
+void WindowDialog::InheritDirect2D(Direct2DEx *const ap_direct2d)
+{
+    delete mp_direct2d;
+    mp_direct2d = ap_direct2d;
+}
+
 const WindowDialog::THEME_MODE WindowDialog::GetThemeMode()
 {
     return m_themeMode;

@@ -26,7 +26,7 @@ public:
 	Direct2D(const HWND ah_window, const RECT *const ap_viewRect = nullptr);
 	virtual ~Direct2D();
 
-	int Create();
+	virtual int Create();
 
 	void BeginDraw();
 	void EndDraw();

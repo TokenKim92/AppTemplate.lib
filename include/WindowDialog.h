@@ -50,6 +50,7 @@ public:
 
     int Create(int a_width = CW_USEDEFAULT, int a_height = 0, int a_x = CW_USEDEFAULT, int a_y = 0);
     int SetThemeMode(const THEME_MODE a_mode);
+    void InheritDirect2D(Direct2DEx *const ap_direct2d);
     const THEME_MODE GetThemeMode();
 
     void DisableMove();
