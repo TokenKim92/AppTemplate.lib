@@ -1,38 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="base\src\ApplicationCore.cpp">
-      <Filter>Source Files\base</Filter>
-    </ClCompile>
-    <ClCompile Include="base\src\Direct2D.cpp">
-      <Filter>Source Files\base</Filter>
-    </ClCompile>
-    <ClCompile Include="base\src\WindowDialog.cpp">
-      <Filter>Source Files\base</Filter>
-    </ClCompile>
-    <ClCompile Include="src\AppTemplate.cpp">
+    <ClCompile Include="src\ApplicationCore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AppTemplateDialog.cpp">
+    <ClCompile Include="src\Direct2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="base\src\Direct2DEx.cpp">
-      <Filter>Source Files\base</Filter>
+    <ClCompile Include="src\Direct2DEx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowDialog.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="base\include\ColorPalette.h">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
-    <ClInclude Include="base\include\ApplicationCore.h">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
-    <ClInclude Include="base\include\Direct2D.h">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
-    <ClInclude Include="base\include\WindowDialog.h">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
     <ClInclude Include="include\framework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -42,11 +24,20 @@
     <ClInclude Include="include\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\AppTemplateDialog.h">
+    <ClInclude Include="include\ApplicationCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="base\include\Direct2DEx.h">
-      <Filter>Header Files\base</Filter>
+    <ClInclude Include="include\ColorPalette.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Direct2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Direct2DEx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WindowDialog.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -61,14 +52,8 @@
     <Filter Include="Header Files">
       <UniqueIdentifier>{0eee459e-8856-46ba-992f-3953a8bb69ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\base">
-      <UniqueIdentifier>{d8a93de5-b970-4133-ba2f-79cfb834168f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{305d46f7-a407-48e5-9075-0a65f12516a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\base">
-      <UniqueIdentifier>{c00784db-e732-4722-b85e-128800d74f3a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{4db63b70-6234-47d1-9ca5-b0fec824b124}</UniqueIdentifier>

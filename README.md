@@ -1,3 +1,3 @@
-# AppTemplate
+# AppTemplate.lib
 
-Project to make Windows Desktop Application easier to use
+library to make Windows Desktop Application easier by using Direct2D Rendering
