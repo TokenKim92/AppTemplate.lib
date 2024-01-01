@@ -34,6 +34,7 @@ protected:
 
     Direct2DEx *mp_direct2d;
     THEME_MODE m_themeMode;
+    unsigned long m_extendStyle;
 
 public:
     static LRESULT CALLBACK WindowProcedure(HWND ah_window, UINT a_messageID, WPARAM a_wordParam, LPARAM a_longParam);
@@ -49,6 +50,7 @@ public:
     int Run();
 
     int Create(int a_width = CW_USEDEFAULT, int a_height = 0, int a_x = CW_USEDEFAULT, int a_y = 0);
+    void SetExtendStyle(const unsigned long a_extendStyle);
     int SetThemeMode(const THEME_MODE a_mode);
     void InheritDirect2D(Direct2DEx *const ap_direct2d);
     const THEME_MODE GetThemeMode();

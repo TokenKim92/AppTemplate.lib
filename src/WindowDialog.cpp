@@ -67,6 +67,7 @@ WindowDialog::WindowDialog(const wchar_t *const ap_windowClass, const wchar_t *c
 
     mp_direct2d = nullptr;
     m_themeMode = THEME_MODE::DARK_MODE;
+    m_extendStyle = 0;
 }
 
 WindowDialog::~WindowDialog()
@@ -122,6 +123,11 @@ int WindowDialog::Create(int a_width, int a_height, int a_x, int a_y)
     }
 
     return Run();
+}
+
+void WindowDialog::SetExtendStyle(const unsigned long a_extendStyle)
+{
+    m_extendStyle = a_extendStyle;
 }
 
 int WindowDialog::SetThemeMode(const THEME_MODE a_mode)
@@ -200,7 +206,8 @@ void WindowDialog::RemoveMessageHandler(unsigned int a_messageID)
 // create and initialize a main window
 bool WindowDialog::InitInstance(int a_width, int a_height, int a_x, int a_y)
 {
-    HWND h_window = ::CreateWindowW(
+    HWND h_window = ::CreateWindowExW(
+        m_extendStyle,
         mp_windowClass, mp_title, 
         DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU,
         a_x, a_y, a_width, a_height, 
@@ -224,10 +231,10 @@ bool WindowDialog::InitInstance(int a_width, int a_height, int a_x, int a_y)
 
     if (h_window) {
         mh_window = h_window;
-        
+
         if (S_OK == SetThemeMode(m_themeMode)) {
             mp_direct2d = new Direct2DEx(mh_window);
-            
+
             if (S_OK == mp_direct2d->Create()) {
                 OnInitDialog();
 
