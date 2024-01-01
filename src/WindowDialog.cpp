@@ -275,7 +275,8 @@ msg_handler int WindowDialog::SysCommandHandler(WPARAM a_menuID, LPARAM a_longPa
 {
     if (MENU_LIGHT_MODE == a_menuID) {
         SetThemeMode(THEME_MODE::LIGHT_MODE);
-        
+        OnSetThemeMode();
+
         HMENU h_systemMenu = ::GetSystemMenu(mh_window, FALSE);
         if (nullptr != h_systemMenu) {
             ::EnableMenuItem(h_systemMenu, MENU_LIGHT_MODE, MF_DISABLED);
@@ -284,6 +285,7 @@ msg_handler int WindowDialog::SysCommandHandler(WPARAM a_menuID, LPARAM a_longPa
     }
     else if (MENU_DARK_MODE == a_menuID) {
         SetThemeMode(THEME_MODE::DARK_MODE);
+        OnSetThemeMode();
 
         HMENU h_systemMenu = ::GetSystemMenu(mh_window, FALSE);
         if (nullptr != h_systemMenu) {
@@ -309,6 +311,11 @@ void WindowDialog::OnDestroy()
 }
 
 void WindowDialog::OnPaint()
+{
+
+}
+
+void WindowDialog::OnSetThemeMode()
 {
 
 }

@@ -75,6 +75,7 @@ public:
     virtual void OnInitDialog();
     virtual void OnDestroy();
     virtual void OnPaint();
+    virtual void OnSetThemeMode();
 };
 
 #endif //_WINDOW_DIALOG_H_ 
