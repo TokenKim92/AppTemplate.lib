@@ -67,6 +67,7 @@ WindowDialog::WindowDialog(const wchar_t *const ap_windowClass, const wchar_t *c
 
     mp_direct2d = nullptr;
     m_themeMode = THEME_MODE::DARK_MODE;
+    m_style = DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU;
     m_extendStyle = 0;
 }
 
@@ -123,6 +124,20 @@ int WindowDialog::Create(int a_width, int a_height, int a_x, int a_y)
     }
 
     return Run();
+}
+
+int WindowDialog::DoModal(HWND ah_parentWindow, int a_width, int a_height, int a_x, int a_y)
+{
+    ::EnableWindow(ah_parentWindow, FALSE);
+    const int result = Create(a_width, a_height, a_x, a_y);
+    ::EnableWindow(ah_parentWindow, TRUE);
+
+    return result;
+}
+
+void WindowDialog::SetStyle(const unsigned long a_tyle)
+{
+    m_style = a_tyle;
 }
 
 void WindowDialog::SetExtendStyle(const unsigned long a_extendStyle)
@@ -209,7 +224,7 @@ bool WindowDialog::InitInstance(int a_width, int a_height, int a_x, int a_y)
     HWND h_window = ::CreateWindowExW(
         m_extendStyle,
         mp_windowClass, mp_title, 
-        DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU,
+        m_style,
         a_x, a_y, a_width, a_height, 
         nullptr, nullptr, gp_appCore->GetHandleInstance(),
         this
