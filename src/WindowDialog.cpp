@@ -92,7 +92,7 @@ void WindowDialog::RegistWindowClass()
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = gp_appCore->GetHandleInstance();
-    wcex.hIcon = LoadIcon(nullptr, IDI_APPLICATION); // icon of application
+    wcex.hIcon = LoadIcon(nullptr, MAKEINTRESOURCE(IDI_APPTEMPLATE)); // icon of application
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     wcex.lpszMenuName = nullptr;
