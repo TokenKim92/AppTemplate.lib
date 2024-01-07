@@ -50,6 +50,7 @@ public:
 	// returns the previous stroke style. must be released from the user
 	ID2D1StrokeStyle *const SetStrokeStyle(ID2D1StrokeStyle *const ap_strokeStyle);
 	void SetStrokeWidth(const float a_strokeWidth);
+	void SetMatrixTransform(const D2D1_MATRIX_3X2_F &a_transform);
 
 protected:
 	virtual HRESULT CreateDeviceResources();

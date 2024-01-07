@@ -34,6 +34,8 @@ protected:
 
     Direct2DEx *mp_direct2d;
     THEME_MODE m_themeMode;
+    int m_width;
+    int m_height;
     unsigned long m_style;
     unsigned long m_extendStyle;
 
@@ -50,8 +52,9 @@ public:
     // Functions that handle messages issued to the application
     int Run();
 
-    int Create(int a_width = CW_USEDEFAULT, int a_height = 0, int a_x = CW_USEDEFAULT, int a_y = 0);
-    int DoModal(HWND ah_parentWindow, int a_width = CW_USEDEFAULT, int a_height = 0, int a_x = CW_USEDEFAULT, int a_y = 0);
+    int Create(int a_x = CW_USEDEFAULT, int a_y = 0);
+    int DoModal(HWND ah_parentWindow, int a_x = CW_USEDEFAULT, int a_y = 0);
+    void SetSize(int a_width, int a_height);
     void SetStyle(const unsigned long a_tyle);
     void SetExtendStyle(const unsigned long a_extendStyle);
     int SetThemeMode(const THEME_MODE a_mode);

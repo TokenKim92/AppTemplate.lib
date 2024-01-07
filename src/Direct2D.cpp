@@ -200,6 +200,11 @@ void Direct2D::SetStrokeWidth(const float a_strokeWidth)
 	m_strokeWidth = a_strokeWidth;
 }
 
+void Direct2D::SetMatrixTransform(const D2D1_MATRIX_3X2_F &a_transform)
+{
+	mp_renderTarget->SetTransform(a_transform);
+}
+
 // returns the previous brush. must be released from the user
 ID2D1Brush *Direct2D::SetBrush(ID2D1Brush *const ap_brush)
 {

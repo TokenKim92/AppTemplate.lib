@@ -67,6 +67,8 @@ WindowDialog::WindowDialog(const wchar_t *const ap_windowClass, const wchar_t *c
 
     mp_direct2d = nullptr;
     m_themeMode = THEME_MODE::DARK_MODE;
+    m_width = CW_USEDEFAULT;
+    m_height = 0;
     m_style = DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU;
     m_extendStyle = 0;
 }
@@ -116,23 +118,29 @@ int WindowDialog::Run()
     return static_cast<int>(message.wParam);
 }
 
-int WindowDialog::Create(int a_width, int a_height, int a_x, int a_y)
+int WindowDialog::Create(int a_x, int a_y)
 {
     RegistWindowClass();
-    if (!InitInstance(a_width, a_height, a_x, a_y)) {
+    if (!InitInstance(m_width, m_height, a_x, a_y)) {
         return 0;
     }
 
     return Run();
 }
 
-int WindowDialog::DoModal(HWND ah_parentWindow, int a_width, int a_height, int a_x, int a_y)
+int WindowDialog::DoModal(HWND ah_parentWindow, int a_x, int a_y)
 {
     ::EnableWindow(ah_parentWindow, FALSE);
-    const int result = Create(a_width, a_height, a_x, a_y);
+    const int result = Create(a_x, a_y);
     ::EnableWindow(ah_parentWindow, TRUE);
 
     return result;
+}
+
+void WindowDialog::SetSize(int a_width, int a_height)
+{
+    m_width = a_width;
+    m_height = a_height;
 }
 
 void WindowDialog::SetStyle(const unsigned long a_tyle)
